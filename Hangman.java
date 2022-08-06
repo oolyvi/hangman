@@ -14,20 +14,20 @@ public class Hangman {
 		ArrayList<String> words = new ArrayList<>();
 		
 		while (scanner.hasNext()) {
-			words.add(scanner.nextLine());    //sozleri words arraylistine elave etdik
+			words.add(scanner.nextLine());    //add words to arraylist
 		}
 		
 		Random rand = new Random();
-		String word = words.get(rand.nextInt(words.size()));  //random sinfi arrayListden 1 soz alir
+		String word = words.get(rand.nextInt(words.size()));  //random class
 		
-		System.out.println(word);       //random olaraq bir sozu output edir
+		System.out.println(word);       //output random word
 		
 		ArrayList<Character> playerGuesses = new ArrayList<>();
 		
-		int wrongCount = 0;       //nece defe sehv eleye bilerin baslangic sayi
+		int wrongCount = 0;       
 		
 	
-		//adam xettini ceken
+		//drawing man
 		while (true) {
 		printHangedMan(wrongCount);
 		
@@ -44,11 +44,11 @@ public class Hangman {
 			wrongCount++;
 		}
 		
-		if(printWordState(word, playerGuesses)) {  //her seyi duz texmin etdikde bitir
+		if(printWordState(word, playerGuesses)) {  //if everything is ok game finished
 			break;
 		}
 		
-		System.out.println("Please enter your guess for the word: ");   //sozu birbasa texmin etme 
+		System.out.println("Please enter your guess for the word: ");   //guessing whole word
 		if (keyboard.nextLine().equals(word)) {
 			System.out.println("You win!");
 			break;
@@ -62,9 +62,9 @@ public class Hangman {
 	}
 
 	
-	//xetleri ceken method
+	//drawig man method
 	private static void printHangedMan(int wrongCount) {
-		//sehv etdikce xett sayi artir
+		//increasing lines
 		System.out.println(" -------");
 		System.out.println(" |     |");
 		if (wrongCount >= 1) {
@@ -97,7 +97,7 @@ public class Hangman {
 		System.out.println();
 	}
 
-	//texmin methodu
+	//guessing method
 	private static boolean getPlayerGuess(Scanner keyboard, String word, ArrayList<Character> playerGuesses) {
 		System.out.println("Please enter a letter: ");
 		String letterGuess = keyboard.nextLine();
@@ -106,16 +106,16 @@ public class Hangman {
 		return word.contains(letterGuess);
 	}
 
-	//herfleri tapma methodu
+	//finding letters method
 	private static boolean printWordState(String word, ArrayList<Character> playerGuesses) {
 		int correctCount = 0;
 		
 		for (int i = 0; i < word.length(); i++) {
-			if (playerGuesses.contains(word.charAt(i))) {  //bir bir herfleri yoxlayir
-				System.out.print(word.charAt(i));    //duz texmin edibse
+			if (playerGuesses.contains(word.charAt(i))) {  //checking letters
+				System.out.print(word.charAt(i));    //if correct
 				correctCount++;
 			}
-			else {                                  //sehv texmin edibse
+			else {                                  //if false
 				System.out.print("-");
 			}
 		}
